@@ -16,10 +16,13 @@ const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
 module.exports = {
   // Every file that can contain a class name. Tailwind's extractor is a
   // regex over source text, so it finds class names written as whole
-  // literals — including ones inside JS strings in these files.
+  // literals — including ones inside JS strings in these files. server.js
+  // belongs here too: it server-renders the public share page, whose
+  // markup lives in template strings there.
   content: [
     './public/**/*.html',
     './public/**/*.js',
+    './server.js',
   ],
 
   // Classes this app builds dynamically (if it ever does) go here, since the

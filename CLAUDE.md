@@ -97,24 +97,23 @@ tables you've marked private), etc.
 
 ## About Restaurant Tier List
 
-A restaurant tier list
-
-_(add a sentence or two more of product context here so Claude Code has a
-shared understanding of what this app is for)_
+A restaurant tier list the group builds together: anyone can add
+restaurants, everyone sorts them into tiers, and a shareable link shows
+the finished ranking read-only to people with no account at all.
 
 ## Design
 
 This app's look. The first real version fills in the blanks; every later
 change follows it, and updates it when a request changes the look on purpose.
 
-- **Palette:** _(name the accent, any second colour and the neutrals, e.g.
-  "accent: tomato red; second: basil green; neutrals: warm greys")_
-- **Signature element:** _(the one thing on screen drawn from this app's
-  subject, which no other app would have)_
+- **Palette:** the kit's defaults, kept: teal accent (`--accent`), warm
+  stone neutrals for ground/surface/raised, warm grey text.
+- **Signature element:** the tier board — one rounded `list` per tier,
+  labelled `Tier S` through `Tier D` with `section-label`, each row a
+  restaurant. The same board, controls removed plus a "Shared view · read
+  only" pill, is the public share page.
 - **Type scale:** `text-title`, `text-heading`, `text-body`, `text-small`
-  _(change their sizes in `tailwind.config.js` if you must, not their number)_
-- **One fixed look:** _(only for an app drawn as its own scene, such as a
-  game: which look, and why. Otherwise delete this line.)_
+  (defaults; do not change their number).
 
 The kit is in `styles/tailwind-input.css`: colour tokens with a light and
 a dark value (named in `tailwind.config.js`), and a few components
@@ -139,6 +138,18 @@ Re-theme by changing the token values there, keeping every text pair at
 
 ## App-specific conventions
 
-_(optional — e.g. "all currency values stored as integer cents, not
-floats"; "the `posts` table is append-only"; "avoid adding new
-dependencies"; etc.)_
+- **One communal list.** The app reads and writes the oldest `tier_lists`
+  row; there is no list picker. Staging-only `?demo=1` points the screen
+  and its API calls at the demo list instead.
+- **Tiers are fixed:** S, A, B, C, D, in that order. Entries append to the
+  end of their tier (`position` = max + 1); rows within a tier keep
+  arrival order. Moving a restaurant re-appends it to the target tier.
+- **Share slugs:** 22-char base64url from 16 random bytes.
+  `POST /api/share` is idempotent (re-sharing returns the same link);
+  revocation is permanent — a re-share mints a fresh slug, so old revoked
+  links stay dead. The public page at `/share/<slug>` is server-rendered,
+  HTML-escaped, and never exposes `added_by` or any user identity.
+- **Staging demo ids:** 900001 (shared demo list, slug
+  `staging-demo-share`, boot re-asserts the slug) and 900002 (unshared)
+  are reserved; ids below 900000 are real data.
+- **No new dependencies.**
