@@ -3,5 +3,9 @@
   "icon": {
     "emoji": "🍜"
   },
-  "secrets": []
+  "secrets": [],
+  "visibility": {
+    "build": "public",
+    "view": "public"
+  }
 }
