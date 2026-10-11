@@ -7,5 +7,33 @@
   "visibility": {
     "build": "public",
     "view": "public"
-  }
+  },
+  "tests": [
+    {
+      "id": "share.public-page",
+      "name": "Public share page renders the shared demo list",
+      "path": "/share/staging-demo-share",
+      "expectText": "Staging demo",
+      "visual": true,
+      "impact": ["server.js"]
+    },
+    {
+      "name": "Unknown share slug shows the not-shared page",
+      "path": "/share/no-such-link",
+      "expectText": "not shared"
+    },
+    {
+      "name": "Tier list screen loads",
+      "path": "/",
+      "expectText": "Restaurant Tier List"
+    },
+    {
+      "id": "list.demo-populated",
+      "name": "Demo tier list renders populated",
+      "path": "/?demo=1",
+      "expectText": "Staging demo",
+      "visual": true,
+      "impact": ["public/index.html", "server.js"]
+    }
+  ]
 }
