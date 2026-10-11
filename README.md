@@ -1,27 +1,30 @@
 # Restaurant Tier List
 
-> **Starter template** — this repo was scaffolded by Homeroom Social
-> Vibecoding. Everything in it is placeholder example code until the
-> app's first real feature is built.
+Rank your favorite restaurants together. Anyone in the group can add
+restaurants, everyone sorts them into tiers (S, A, B, C, D), and the board
+shows where each one lands. One communal list, no per-person ranks: what
+you see is what the group built.
 
-The scaffold is a small working demo that proves the plumbing works:
+## Sharing
+
+Any signed-in member can turn on sharing from the **Share** button. The
+link it creates shows a read-only view of the list to anyone at all, with
+no account needed and nothing to sign in to. The page shows the ranking
+and never the people: no usernames, no who-added-what. Stopping sharing
+kills the link for good; sharing again creates a brand new one, so a
+revoked link can never come back.
+
+## How it works
 
 - **Sign-in** — the server verifies the platform-issued user token
   (an RS256 JWT) on every request, so the app already knows who is
-  using it. No accounts to build.
-- **Database** — the app has its own private Postgres database, ready
-  to store things.
+  using it. No accounts to build. People without an account can look
+  around read-only, including at shared links.
+- **Database** — one communal list (`tier_lists`) with restaurant
+  `entries`, plus the `share_slug` that powers the public link.
+- **Public share page** — served by the server at `/share/<slug>`:
+  server-rendered, deliberately public, and HTML-escaped; registered
+  before the auth-gated catch-all.
 - **Styling** — Tailwind CSS, precompiled by `npm run build` during
   image creation with either Kubernetes/Paketo or standalone Docker, in a
   light and a dark look that follow the viewer's Homeroom theme.
-
-## Replacing the template
-
-To change this app, ask Homeroom bot: open the app on Homeroom, tap the
-Homeroom icon in the header, then **Suggest an improvement**, and describe
-the app you want in plain English. The template will be replaced with your
-real app. You can also run
-Claude Code against this repo directly; start with `CLAUDE.md`, which
-carries the app-specific notes and points at the platform rules.
-
-Once the real app exists, rewrite this README to describe it.
