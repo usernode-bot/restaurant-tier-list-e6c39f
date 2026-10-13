@@ -4,6 +4,10 @@
     "emoji": "🍜"
   },
   "secrets": [],
+  "visibility": {
+    "build": "public",
+    "view": "public"
+  },
   "tests": [
     {
       "id": "share.public-page",
