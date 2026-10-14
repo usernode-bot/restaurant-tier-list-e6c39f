@@ -1,6 +1,7 @@
 {
   "description": "A restaurant tier list",
   "icon": {
+    "image": "brand/icon.png",
     "emoji": "🍜"
   },
   "secrets": [],
